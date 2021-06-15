@@ -12,3 +12,5 @@ Imię i nazwisko studenta:   Korneliusz Dudus
 Numer albumu:               71972  
 Grupa studencka:            WEL18ET1S1  
 Data realizacji zajęć:      15.06.2021 r.  
+
+Punkt 4.5 nie dziala
