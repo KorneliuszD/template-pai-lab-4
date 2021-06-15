@@ -403,3 +403,6 @@ VALUES (1, 1, 1, 29.90),
 INSERT INTO AutorzyPseudonimy
 VALUES (5, 2);
 
+
+
+

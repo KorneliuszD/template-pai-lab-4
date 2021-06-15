@@ -3,43 +3,51 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <title>Portal</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Portal</title>
 </head>
 
 <body>
 
-  <div id="topDiv" class="scafoldingDiv">
-    <div id="headerMainDiv">
-      <a href="index.php">Główna</a> |
-      <a href="index.php?action=showSearchForm">Szukaj książki</a> |
-      <a href="index.php?action=showBasket">Twój koszyk</a> |
-      <a href="index.php?action=showRegistrationForm">Rejestracja</a>
+    <div id="topDiv" class="scafoldingDiv">
+        <div id="headerMainDiv">
+            <a href="index.php">Główna</a> |
+            <a href="index.php?action=showSearchForm">Szukaj książki</a> |
+            <a href="index.php?action=showBasket">Twój koszyk</a> |
+            <a href="index.php?action=showRegistrationForm">Rejestracja</a>
+        </div>
+        <div id="headerUserInfoDiv">
+            <?php if ($portal->zalogowany) : ?>
+            <div>Jesteś zalogowany jako: <?= $portal->zalogowany->nazwa ?></div>
+            <div><a href="index.php?action=logout">Wylogowanie</a></div>
+            <?php else : ?>
+            <div>Nie jesteś zalogowany.</div>
+            <div><a href="index.php?action=showLoginForm">Logowanie</a></div>
+            <?php endif ?>
+        </div>
     </div>
-    <div id="headerUserInfoDiv">
-      <?php if ($portal->zalogowany) : ?>
-        <div>Jesteś zalogowany jako: <?= $portal->zalogowany->nazwa ?></div>
-        <div><a href="index.php?action=logout">Wylogowanie</a></div>
-      <?php else : ?>
-        <div>Nie jesteś zalogowany.</div>
-        <div><a href="index.php?action=showLoginForm">Logowanie</a></div>
-      <?php endif ?>
-    </div>
-  </div>
 
-  <div id="centerDiv" class="scafoldingDiv">
-    <div id="mainContentDiv">
+    <div id="centerDiv" class="scafoldingDiv">
+        <div id="mainContentDiv">
 
-      <?php if ($komunikat) : ?>
-        <div class="komunikat"><?= $komunikat; ?></div>
-      <?php endif; ?>
+            <?php if ($komunikat) : ?>
+            <div class="komunikat"><?= $komunikat; ?></div>
+            <?php endif; ?>
 
-      <?php
+            <?php
+
+      if ($action == 'showLoginForm' && $portal->zalogowany) {
+        $portal->setMessage("Najpierw proszę się wylogować");
+        header("location:index.php?action=showMain");
+        return;
+      }
       switch ($action):
         case 'showLoginForm':
           //Wyświetlenie formularza logowania
+          include('templates/loginForm.php');
           break;
+
         case 'showRegistrationForm':
           //Wyświetlenie formularza wyszukiwania
           break;
@@ -63,12 +71,12 @@
           include 'templates/innerContentDiv.php';
       endswitch;
       ?>
+        </div>
     </div>
-  </div>
 
-  <div id="footerDiv" class="scafoldingDiv">
-    <p>Stopka strony</p>
-  </div>
+    <div id="footerDiv" class="scafoldingDiv">
+        <p>Stopka strony</p>
+    </div>
 
 </body>
 
