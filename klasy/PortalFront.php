@@ -78,7 +78,7 @@ class PortalFront extends Portal
         return ACTION_FAILED;
       } else {
         $nazwa = $row[1] . ' ' . $row[2]; // Utworzenie nazwy użytkownika 
-        // $_SESSION['zalogowany'] = new User($row[0], $nazwa);
+        $_SESSION['zalogowany'] = new User($row[0], $nazwa);
         return ACTION_OK;
       }
     }
@@ -93,8 +93,12 @@ class PortalFront extends Portal
   }
   function showRegistrationForm()
   {
+    $reg = new Registration($this->dbo);
+    return $reg->showRegistrationForm();
   }
   function registerUser()
   {
+    $reg = new Registration($this->dbo);
+    return $reg->registerUser();
   }
 }
