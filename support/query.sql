@@ -34,9 +34,9 @@ CREATE TABLE AutorzyPseudonimy(
  `AutorId1` INTEGER NOT NULL, `AutorId2` INTEGER NOT NULL,
  PRIMARY KEY(`AutorId1`, `AutorId2`));
 -- Modyfikacja tabel w celu rozszerzenia funkcjonalności
-ALTER TABLE AutorzyPseudonimy 
+ALTER TABLE AutorzyPseudonimy
 ADD CONSTRAINT `AutorzyPseudonimyAutorId1FK` FOREIGN KEY (`AutorId1`) REFERENCES Autorzy(`Id`);
-ALTER TABLE AutorzyPseudonimy 
+ALTER TABLE AutorzyPseudonimy
 ADD CONSTRAINT `AutorzyPseudonimyAutorId2FK` FOREIGN KEY (`AutorId2`) REFERENCES Autorzy(`Id`);
 ALTER TABLE Opinie
 ADD INDEX `OpinieKsiazkaIdInd` (`KsiazkaId`);
@@ -50,7 +50,7 @@ ALTER TABLE KsiazkiAutorzy
 ADD CONSTRAINT `KsiazkiAutorzyKsiazkaIdFK` FOREIGN KEY (`KsiazkaId`) REFERENCES Ksiazki(`Id`);
 ALTER TABLE KsiazkiAutorzy
 ADD CONSTRAINT `KsiazkiAutorzyAutorIdFK` FOREIGN KEY (`AutorId`) REFERENCES Autorzy(`Id`);
-ALTER TABLE Recenzje 
+ALTER TABLE Recenzje
 ADD INDEX `RecenzjeKsiazkaIdInd` (`KsiazkaId`);
 ALTER TABLE Recenzje
 ADD CONSTRAINT `RecenzjeKsiazkaIdFK` FOREIGN KEY (`KsiazkaId`) REFERENCES Ksiazki(`Id`);
@@ -58,7 +58,7 @@ ALTER TABLE Ksiazki
 ADD INDEX `KsiazkiWydawnictwoIdInd` (`WydawnictwoId`);
 ALTER TABLE Ksiazki
 ADD CONSTRAINT `KsiazkiWydawnictwoIdFK` FOREIGN KEY (`WydawnictwoId`) REFERENCES Wydawnictwa(`Id`);
-ALTER TABLE Zamowienia 
+ALTER TABLE Zamowienia
 ADD INDEX `ZamowieniaKlientIdInd` (`KlientId`);
 ALTER TABLE Zamowienia
 ADD CONSTRAINT `ZamowieniaKlientIdFK` FOREIGN KEY (`KlientId`) REFERENCES Klienci(`Id`);
@@ -69,6 +69,15 @@ ALTER TABLE KsiazkiZamowienia
 ADD CONSTRAINT `KsiazkiZamowieniaKsiazkaIdFK` FOREIGN KEY (`KsiazkaId`) REFERENCES Ksiazki(`Id`);
 
 -- Dodanie początkowej zawartości do tabel.
+
+--Modyfikacja bazy danych 
+ALTER TABLE Klienci ADD COLUMN `Email` VARCHAR(245) UNIQUE;
+ALTER TABLE Klienci ADD COLUMN `Haslo` VARCHAR(100) NOT NULL;
+ALTER TABLE Klienci CHANGE COLUMN `Nr domu` `Nr_domu` VARCHAR(5) NOT NULL;
+ALTER TABLE Klienci CHANGE COLUMN `Nr mieszkania` `Nr_mieszkania` VARCHAR(5);
+ALTER TABLE Klienci CHANGE COLUMN `Miasto` `Miejscowosc` VARCHAR(60) NOT NULL;
+
+--import pliku insert.sql z użyciem interfejsu graficznego z pozimu strony phpmyadmin
 INSERT INTO Autorzy
 VALUES (1, 'Orson Scott Card'),
     (2, 'Robin Hobb'),
